@@ -2,7 +2,7 @@
 
 Demo app for [slate-yjs](https://github.com/bitphinix/slate-yjs)
 
-Example ported from [slate-collaboritve](https://github.com/cudr/slate-collaborative)
+Example ported from [slate-collaborative](https://github.com/cudr/slate-collaborative)
 
 ![](https://media.giphy.com/media/J4IaAYZvJ1MNXz2p4j/giphy.gif)
 
