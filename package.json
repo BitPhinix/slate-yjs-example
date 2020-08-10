@@ -34,7 +34,7 @@
     "yjs": "^13.3.2"
   },
   "scripts": {
-    "start": "cross-env PORT=9000 && ts-node ./server/main.ts",
+    "start": "ts-node -P ./tsconfig.server.json ./server/main.ts",
     "start:cra": "cross-env REACT_APP_BUILD_TARGET=src/website && react-scripts start",
     "prebuild": "cp -f ./tsconfig.production.json ./tsconfig.json",
     "build": "cross-env NODE_ENV=production && react-scripts build",
