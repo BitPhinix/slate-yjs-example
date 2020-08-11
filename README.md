@@ -1,4 +1,4 @@
-# Slate YJS
+# Slate Yjs Example project
 
 Demo app for [slate-yjs](https://github.com/bitphinix/slate-yjs)
 

@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { createEditor, Node } from "slate";
 import { withHistory } from "slate-history";
 import { withReact } from "slate-react";
-import { WebsocketEditorOptions, withWebsocket, withYJs } from "slate-yjs";
+import { WebsocketEditorOptions, withWebsocket, withYjs } from "slate-yjs";
 import { Button, H4, Instance, Title } from "./Components";
 import EditorFrame from "./EditorFrame";
 import { withLinks } from "./plugins/link";
@@ -20,7 +20,7 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
   const [isOnline, setOnlineState] = useState<boolean>(false);
 
   const editor = useMemo(() => {
-    const slateEditor = withYJs(withLinks(withReact(withHistory(createEditor()))));
+    const slateEditor = withYjs(withLinks(withReact(withHistory(createEditor()))));
 
     const endpoint =
       process.env.NODE_ENV === "production" ? window.location.origin : "ws://localhost:9000";
