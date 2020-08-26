@@ -24,7 +24,7 @@
     "react-dom": "16.13.1",
     "react-scripts": "3.4.1",
     "slate": "0.58.4",
-    "slate-history": "0.58.3",
+    "slate-history": "0.58.4",
     "slate-react": "0.58.3",
     "slate-yjs": "0.1.0",
     "ts-node": "8.10.2",
