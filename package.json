@@ -7,7 +7,7 @@
     "@emotion/styled": "10.0.27",
     "@types/faker": "4.1.12",
     "@types/is-url": "1.2.28",
-    "@types/jest": "24.0.18",
+    "@types/jest": "26.0.10",
     "@types/node": "12.7.5",
     "@types/randomcolor": "0.5.5",
     "@types/react-dom": "16.9.8",
