@@ -25,7 +25,7 @@
     "react-scripts": "3.4.3",
     "slate": "0.58.4",
     "slate-history": "0.58.4",
-    "slate-react": "0.58.3",
+    "slate-react": "0.58.4",
     "slate-yjs": "0.1.2",
     "ts-node": "8.10.2",
     "typescript": "4.0.2",
