@@ -22,7 +22,7 @@
     "nodemon": "1.19.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "3.4.3",
     "slate": "0.58.4",
     "slate-history": "0.58.4",
     "slate-react": "0.58.3",
