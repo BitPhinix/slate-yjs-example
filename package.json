@@ -60,7 +60,7 @@
     "node": "12.x"
   },
   "devDependencies": {
-    "@types/cors": "2.8.7",
+    "@types/cors": "2.8.8",
     "@types/ws": "7.2.6"
   }
 }
