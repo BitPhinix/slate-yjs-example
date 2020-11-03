@@ -3,7 +3,7 @@
   "version": "0.7.0",
   "private": true,
   "dependencies": {
-    "@emotion/core": "10.1.0",
+    "@emotion/core": "10.1.1",
     "@emotion/styled": "10.0.27",
     "@types/faker": "5.1.4",
     "@types/is-url": "1.2.28",
