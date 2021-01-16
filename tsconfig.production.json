@@ -11,24 +11,14 @@
     "declarationMap": false,
     "noEmit": true,
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "jsx": "react-jsx",
-    "noFallthroughCasesInSwitch": true
+    "jsx": "react-jsx"
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "exclude": ["node_modules"],
+  "include": ["**/*.ts", "**/*.tsx"]
 }

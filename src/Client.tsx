@@ -10,6 +10,11 @@ import { Button, H4, Instance, Title } from "./Components";
 import EditorFrame from "./EditorFrame";
 import { withLinks } from "./plugins/link";
 
+const WEBSOCKET_ENDPOINT =
+  process.env.NODE_ENV === "production"
+    ? "wss://demos.yjs.dev/slate-demo"
+    : "ws://localhost:1234";
+
 interface ClientProps {
   name: string;
   id: string;
@@ -24,7 +29,9 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
   const [sharedType, provider] = useMemo(() => {
     const doc = new Y.Doc();
     const sharedType = doc.getArray<SyncElement>("content");
-    const provider = new WebsocketProvider("ws://localhost:1234/", slug, doc);
+    const provider = new WebsocketProvider(WEBSOCKET_ENDPOINT, slug, doc, {
+      connect: false,
+    });
     return [sharedType, provider];
   }, [id]);
 
@@ -52,6 +59,8 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
         ]);
       }
     });
+
+    provider.connect();
 
     return () => {
       provider.disconnect();
