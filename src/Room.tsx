@@ -54,7 +54,12 @@ const Room: React.FC<RoomProps> = ({ slug, removeRoom }) => {
       <Grid>
         {users.map((user: User) =>
           isRemounted ? null : (
-            <Client {...user} slug={roomSlug} key={user.id} removeUser={removeUser} />
+            <Client
+              {...user}
+              slug={roomSlug}
+              key={user.id}
+              removeUser={removeUser}
+            />
           )
         )}
       </Grid>

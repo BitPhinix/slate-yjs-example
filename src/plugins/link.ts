@@ -1,20 +1,20 @@
 import isUrl from "is-url";
-import { Editor, Range, Transforms } from "slate";
+import { Editor, Element, Range, Transforms } from "slate";
 
 export interface LinkEditor extends Editor {
   insertData: (data: any) => void;
 }
 
-export const withLinks = <T extends Editor>(editor: T) => {
+export const withLinks = <T extends Editor>(editor: T): T & LinkEditor => {
   const e = editor as T & LinkEditor;
 
   const { insertData, insertText, isInline } = e;
 
-  e.isInline = (element: any) => {
+  e.isInline = (element: Element) => {
     return element.type === "link" ? true : isInline(element);
   };
 
-  e.insertText = (text: string) => {
+  e.insertText = (text: string): void => {
     if (text && isUrl(text)) {
       wrapLink(editor, text);
     } else {
@@ -22,7 +22,7 @@ export const withLinks = <T extends Editor>(editor: T) => {
     }
   };
 
-  e.insertData = (data: any) => {
+  e.insertData = (data: DataTransfer): void => {
     const text = data.getData("text/plain");
 
     if (text && isUrl(text)) {
@@ -32,25 +32,25 @@ export const withLinks = <T extends Editor>(editor: T) => {
     }
   };
 
-  return editor;
+  return e;
 };
 
-export const insertLink = (editor: Editor, href: string) => {
+export const insertLink = (editor: Editor, href: string): void => {
   if (editor.selection) {
     wrapLink(editor, href);
   }
 };
 
-export const isLinkActive = (editor: Editor) => {
+export const isLinkActive = (editor: Editor): boolean => {
   const [link] = Editor.nodes(editor, { match: (n) => n.type === "link" });
   return !!link;
 };
 
-export const unwrapLink = (editor: Editor) => {
+export const unwrapLink = (editor: Editor): void => {
   Transforms.unwrapNodes(editor, { match: (n) => n.type === "link" });
 };
 
-export const wrapLink = (editor: Editor, href: string) => {
+export const wrapLink = (editor: Editor, href: string): void => {
   if (isLinkActive(editor)) {
     unwrapLink(editor);
   }

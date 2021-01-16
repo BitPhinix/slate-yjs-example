@@ -1,6 +1,12 @@
 import React, { useCallback } from "react";
 import { Node } from "slate";
-import { Editable, ReactEditor, RenderLeafProps, Slate, useSlate } from "slate-react";
+import {
+  Editable,
+  ReactEditor,
+  RenderLeafProps,
+  Slate,
+  useSlate,
+} from "slate-react";
 import { ClientFrame, Icon, IconButton } from "./Components";
 import { isBlockActive, toggleBlock } from "./plugins/block";
 import { insertLink, isLinkActive, unwrapLink } from "./plugins/link";
@@ -115,7 +121,7 @@ const BlockButton: React.FC<any> = ({ format, icon }) => {
   return (
     <IconButton
       active={isBlockActive(editor, format)}
-      onMouseDown={(event) => {
+      onMouseDown={(event: React.MouseEvent) => {
         event.preventDefault();
         toggleBlock(editor, format);
       }}
@@ -130,7 +136,7 @@ const MarkButton: React.FC<any> = ({ format, icon }) => {
   return (
     <IconButton
       active={isMarkActive(editor, format)}
-      onMouseDown={(event) => {
+      onMouseDown={(event: React.MouseEvent) => {
         event.preventDefault();
         toggleMark(editor, format);
       }}
@@ -148,7 +154,7 @@ const LinkButton = () => {
   return (
     <IconButton
       active={isActive}
-      onMouseDown={(event) => {
+      onMouseDown={(event: React.MouseEvent) => {
         event.preventDefault();
 
         if (isActive) return unwrapLink(editor);

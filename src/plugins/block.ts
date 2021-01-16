@@ -2,7 +2,7 @@ import { Editor, Transforms } from "slate";
 
 const LIST_TYPES: string[] = ["numbered-list", "bulleted-list"];
 
-export const toggleBlock = (editor: any, format: any) => {
+export const toggleBlock = (editor: Editor, format: string): void => {
   const isActive = isBlockActive(editor, format);
   const isList = LIST_TYPES.includes(format);
 
@@ -21,7 +21,7 @@ export const toggleBlock = (editor: any, format: any) => {
   }
 };
 
-export const isBlockActive = (editor: any, format: any) => {
+export const isBlockActive = (editor: Editor, format: string): boolean => {
   const [match] = Editor.nodes(editor, {
     match: (n) => n.type === format,
   });

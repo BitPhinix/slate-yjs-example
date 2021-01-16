@@ -10,10 +10,10 @@ Example ported from [slate-collaborative](https://github.com/cudr/slate-collabor
 
 Open 2 terminal and execute the following commands:
 
-### Terminal 1 (Backend)
+### Terminal 1 (Server)
 
 ```
-npm run start
+npm run start:server
 ```
 
 ### Terminal 2 (Frontend)

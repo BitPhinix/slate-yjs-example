@@ -1,6 +1,6 @@
 import { Editor } from "slate";
 
-export const toggleMark = (editor: Editor, format: any) => {
+export const toggleMark = (editor: Editor, format: string): void => {
   const isActive = isMarkActive(editor, format);
 
   if (isActive) {
@@ -10,7 +10,7 @@ export const toggleMark = (editor: Editor, format: any) => {
   }
 };
 
-export const isMarkActive = (editor: Editor, format: any) => {
+export const isMarkActive = (editor: Editor, format: string): boolean => {
   const marks = Editor.marks(editor);
   return marks ? marks[format] === true : false;
 };

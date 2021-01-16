@@ -3,7 +3,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import { createEditor, Node } from "slate";
 import { withHistory } from "slate-history";
 import { withReact } from "slate-react";
-import { WebsocketEditorOptions, withWebsocket, withYjs } from "slate-yjs";
+import { SyncElement, toSharedType, withYjs } from "slate-yjs";
+import { WebsocketProvider } from "y-websocket";
+import * as Y from "yjs";
 import { Button, H4, Instance, Title } from "./Components";
 import EditorFrame from "./EditorFrame";
 import { withLinks } from "./plugins/link";
@@ -19,30 +21,45 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
   const [value, setValue] = useState<Node[]>([]);
   const [isOnline, setOnlineState] = useState<boolean>(false);
 
+  const [sharedType, provider] = useMemo(() => {
+    const doc = new Y.Doc();
+    const sharedType = doc.getArray<SyncElement>("content");
+    const provider = new WebsocketProvider("ws://localhost:1234/", slug, doc);
+    return [sharedType, provider];
+  }, [id]);
+
   const editor = useMemo(() => {
-    const slateEditor = withYjs(withLinks(withReact(withHistory(createEditor()))));
+    const editor = withYjs(
+      withLinks(withReact(withHistory(createEditor()))),
+      sharedType
+    );
 
-    const endpoint =
-      process.env.NODE_ENV === "production" ? window.location.origin : "ws://localhost:9000";
-
-    const options: WebsocketEditorOptions = {
-      endpoint: endpoint,
-      roomName: slug,
-      onConnect: () => setOnlineState(true),
-      onDisconnect: () => setOnlineState(false),
-    };
-
-    return withWebsocket(slateEditor, options);
-  }, []);
+    return editor;
+  }, [sharedType]);
 
   useEffect(() => {
-    editor.connect();
-    return editor.destroy;
-  }, []);
+    provider.on("status", ({ status }: { status: string }) => {
+      setOnlineState(status === "connected");
+    });
+
+    // Super hacky way to provide a initial value from the client, if
+    // you plan to use y-websocket in prod you probably should provide the
+    // initial state from the server.
+    provider.on("sync", (isSynced: boolean) => {
+      if (isSynced && sharedType.length === 0) {
+        toSharedType(sharedType, [
+          { type: "paragraph", children: [{ text: "Hello world!" }] },
+        ]);
+      }
+    });
+
+    return () => {
+      provider.disconnect();
+    };
+  }, [provider]);
 
   const toggleOnline = () => {
-    const { connect, disconnect } = editor;
-    isOnline ? disconnect() : connect();
+    isOnline ? provider.disconnect() : provider.connect();
   };
 
   return (
@@ -59,7 +76,11 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
         </div>
       </Title>
 
-      <EditorFrame editor={editor} value={value} onChange={(value: Node[]) => setValue(value)} />
+      <EditorFrame
+        editor={editor}
+        value={value}
+        onChange={(value: Node[]) => setValue(value)}
+      />
     </Instance>
   );
 };

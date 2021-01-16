@@ -3,10 +3,11 @@ import faker from "faker";
 import React, { useEffect, useState } from "react";
 import Room from "./Room";
 
-const App = () => {
+const App: React.FC = () => {
   const [rooms, setRooms] = useState<string[]>([]);
   const addRoom = () => setRooms(rooms.concat(faker.lorem.slug(4)));
-  const removeRoom = (room: string) => () => setRooms(rooms.filter((r) => r !== room));
+  const removeRoom = (room: string) => () =>
+    setRooms(rooms.filter((r) => r !== room));
 
   useEffect(() => {
     addRoom();
