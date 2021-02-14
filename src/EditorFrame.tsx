@@ -1,3 +1,4 @@
+import Caret from "Caret";
 import React, { useCallback } from "react";
 import { Node } from "slate";
 import {
@@ -16,12 +17,20 @@ export interface EditorFrame {
   editor: ReactEditor;
   value: Node[];
   onChange: (value: Node[]) => void;
+  decorate: any;
 }
 
 const renderElement = (props: any) => <Element {...props} />;
 
-const EditorFrame: React.FC<EditorFrame> = ({ editor, value, onChange }) => {
-  const renderLeaf = useCallback((props: any) => <Leaf {...props} />, []);
+const EditorFrame: React.FC<EditorFrame> = ({
+  editor,
+  value,
+  onChange,
+  decorate,
+}) => {
+  const renderLeaf = useCallback((props: any) => <Leaf {...props} />, [
+    decorate,
+  ]);
 
   return (
     <ClientFrame>
@@ -51,7 +60,11 @@ const EditorFrame: React.FC<EditorFrame> = ({ editor, value, onChange }) => {
           <LinkButton />
         </div>
 
-        <Editable renderElement={renderElement} renderLeaf={renderLeaf} />
+        <Editable
+          renderElement={renderElement}
+          renderLeaf={renderLeaf}
+          decorate={decorate}
+        />
       </Slate>
     </ClientFrame>
   );
@@ -101,16 +114,19 @@ const Leaf: React.FC<RenderLeafProps> = ({ attributes, children, leaf }) => {
     children = <u>{children}</u>;
   }
 
+  const data = leaf.data as any;
+
   return (
     <span
       {...attributes}
       style={
         {
           position: "relative",
-          backgroundColor: leaf.alphaColor,
+          backgroundColor: data?.alphaColor,
         } as any
       }
     >
+      {leaf.isCaret ? <Caret {...(leaf as any)} /> : null}
       {children}
     </span>
   );

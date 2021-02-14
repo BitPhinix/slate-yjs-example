@@ -3,12 +3,19 @@ import React, { useEffect, useMemo, useState } from "react";
 import { createEditor, Node } from "slate";
 import { withHistory } from "slate-history";
 import { withReact } from "slate-react";
-import { SyncElement, toSharedType, withYjs } from "slate-yjs";
+import {
+  SyncElement,
+  toSharedType,
+  useCursors,
+  withCursor,
+  withYjs,
+} from "slate-yjs";
 import { WebsocketProvider } from "y-websocket";
 import * as Y from "yjs";
 import { Button, H4, Instance, Title } from "./Components";
 import EditorFrame from "./EditorFrame";
 import { withLinks } from "./plugins/link";
+import randomColor from "randomcolor";
 
 const WEBSOCKET_ENDPOINT =
   process.env.NODE_ENV === "production"
@@ -26,27 +33,44 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
   const [value, setValue] = useState<Node[]>([]);
   const [isOnline, setOnlineState] = useState<boolean>(false);
 
+  const color = useMemo(
+    () =>
+      randomColor({
+        luminosity: "dark",
+        format: "rgba",
+        alpha: 1,
+      }),
+    []
+  );
+
   const [sharedType, provider] = useMemo(() => {
     const doc = new Y.Doc();
     const sharedType = doc.getArray<SyncElement>("content");
     const provider = new WebsocketProvider(WEBSOCKET_ENDPOINT, slug, doc, {
       connect: false,
     });
+
     return [sharedType, provider];
   }, [id]);
 
   const editor = useMemo(() => {
-    const editor = withYjs(
-      withLinks(withReact(withHistory(createEditor()))),
-      sharedType
+    const editor = withCursor(
+      withYjs(withLinks(withReact(withHistory(createEditor()))), sharedType),
+      provider.awareness
     );
 
     return editor;
-  }, [sharedType]);
+  }, [sharedType, provider]);
 
   useEffect(() => {
     provider.on("status", ({ status }: { status: string }) => {
       setOnlineState(status === "connected");
+    });
+
+    provider.awareness.setLocalState({
+      alphaColor: color.slice(0, -2) + "0.2)",
+      color,
+      name,
     });
 
     // Super hacky way to provide a initial value from the client, if
@@ -66,6 +90,8 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
       provider.disconnect();
     };
   }, [provider]);
+
+  const { decorate } = useCursors(editor);
 
   const toggleOnline = () => {
     isOnline ? provider.disconnect() : provider.connect();
@@ -88,6 +114,7 @@ const Client: React.FC<ClientProps> = ({ id, name, slug, removeUser }) => {
       <EditorFrame
         editor={editor}
         value={value}
+        decorate={decorate}
         onChange={(value: Node[]) => setValue(value)}
       />
     </Instance>
