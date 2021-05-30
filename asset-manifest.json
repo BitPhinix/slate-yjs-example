@@ -4,14 +4,14 @@
     "main.js.map": "/slate-yjs-example/static/js/main.37393a85.chunk.js.map",
     "runtime-main.js": "/slate-yjs-example/static/js/runtime-main.5af943a9.js",
     "runtime-main.js.map": "/slate-yjs-example/static/js/runtime-main.5af943a9.js.map",
-    "static/js/2.a2db975e.chunk.js": "/slate-yjs-example/static/js/2.a2db975e.chunk.js",
-    "static/js/2.a2db975e.chunk.js.map": "/slate-yjs-example/static/js/2.a2db975e.chunk.js.map",
+    "static/js/2.21a59633.chunk.js": "/slate-yjs-example/static/js/2.21a59633.chunk.js",
+    "static/js/2.21a59633.chunk.js.map": "/slate-yjs-example/static/js/2.21a59633.chunk.js.map",
     "index.html": "/slate-yjs-example/index.html",
-    "static/js/2.a2db975e.chunk.js.LICENSE.txt": "/slate-yjs-example/static/js/2.a2db975e.chunk.js.LICENSE.txt"
+    "static/js/2.21a59633.chunk.js.LICENSE.txt": "/slate-yjs-example/static/js/2.21a59633.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5af943a9.js",
-    "static/js/2.a2db975e.chunk.js",
+    "static/js/2.21a59633.chunk.js",
     "static/js/main.37393a85.chunk.js"
   ]
 }
