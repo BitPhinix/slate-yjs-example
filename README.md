@@ -8,7 +8,13 @@ Example ported from [slate-collaborative](https://github.com/cudr/slate-collabor
 
 # Usage
 
-Open 2 terminal and execute the following commands:
+## Setup
+
+Clone this repository and run `npm install` as usual.
+
+## Execution
+
+Open two terminals and execute the following commands:
 
 ### Terminal 1 (Server)
 
@@ -21,6 +27,10 @@ npm run start:server
 ```
 npm run start:cra
 ```
+
+## Build
+
+To build the application, run `npm run build`.
 
 # What about scaling, persistence etc. ?
 
