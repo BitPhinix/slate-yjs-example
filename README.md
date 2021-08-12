@@ -35,23 +35,7 @@ To build the application, run `npm run build`.
 ### Known issues
 
 If you directly see some line break errors by prettier, make sure to handle your line ending correctly (on Windows).
-Set the configuration of git and your local editor (e.g. (VS Code)[https://medium.com/@csmunuku/windows-and-linux-eol-sequence-configure-vs-code-and-git-37be98ef71df#:~:text=VS%20Code%20%3D%3E%20Settings%20%3D%3E,new%20files%20that%20you%20create.])
-correctly. You can also configure prettier according to your needs by adding the following lines to your `.eslintrc.js`: 
-
-```
-rules: {
-    '@typescript-eslint/no-non-null-assertion': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    >>>
-    'prettier/prettier': [
-      'error',
-      {
-        endOfLine: 'auto',
-      }
-    ]
-    <<<
-  }
-```
+Set the configuration of git and your local editor (e.g. (VS Code)[https://medium.com/@csmunuku/windows-and-linux-eol-sequence-configure-vs-code-and-git-37be98ef71df#:~:text=VS%20Code%20%3D%3E%20Settings%20%3D%3E,new%20files%20that%20you%20create.]) correctly.
 
 # What about scaling, persistence etc. ?
 
