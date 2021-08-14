@@ -5,7 +5,7 @@
   "scripts": {
     "start:cra": "cross-env REACT_APP_BUILD_TARGET=src/website && react-scripts start",
     "start:server": "cross-env HOST=localhost PORT=1234 && npx y-websocket-server",
-    "prebuild": "cp -f ./tsconfig.production.json ./tsconfig.json",
+    "prebuild": "shx cp -f ./tsconfig.production.json ./tsconfig.json",
     "build": "cross-env NODE_ENV=production && react-scripts build",
     "dev": "concurrently \"yarn start:cra\" \"yarn serve\"",
     "serve": "nodemon --watch ../backend/lib --inspect server.js"
@@ -63,6 +63,7 @@
     "@types/ws": "7.2.7",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-prettier": "^3.3.1",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "shx": "^0.3.3"
   }
 }
